@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+  <h2>{{ category }} 분야 문서</h2>
+  <a href="{{ url_for('main.create_doc', category=category) }}" role="button">새 문서 작성</a>
+</header>
+
+{% if docs %}
+    {% for doc in docs %}
+    <article class="document-card">
+        <header>
+            <h4>{{ doc.title }}</h4>
+            <small>작성일: {{ doc.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+        </header>
+        <p>{{ doc.content | truncate(200) }}</p>
+        <footer>
+            <small>작성자 ID: {{ doc.author_id }}</small>
+        </footer>
+    </article>
+    {% endfor %}
+{% else %}
+    <p>등록된 문서가 없습니다. 첫 번째 문서를 작성해보세요!</p>
+{% endif %}
+{% endblock %}

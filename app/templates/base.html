@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CRSCWP - Community for Robots / Sports / Coffees</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        .nav-categories { display: flex; gap: 1rem; overflow-x: auto; padding: 1rem 0; border-bottom: 1px solid #ccc; }
+        .nav-categories a { white-space: nowrap; }
+        .document-card { margin-bottom: 2rem; border: 1px solid #eee; padding: 1.5rem; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <header class="container">
+        <nav>
+            <ul>
+                <li><strong><a href="{{ url_for('main.index') }}">CRSCWP</a></strong></li>
+            </ul>
+            <ul>
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('main.profile') }}">프로필</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">로그아웃</a></li>
+                {% else %}
+                <li><a href="{{ url_for('auth.login') }}">로그인</a></li>
+                <li><a href="{{ url_for('auth.signup') }}" class="contrast">회원가입</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% if current_user.is_authenticated %}
+        <div class="nav-categories">
+            <a href="{{ url_for('main.category', cat_name='AGI') }}">AGI</a>
+            <a href="{{ url_for('main.category', cat_name='ACTF') }}">ACTF</a>
+            <a href="{{ url_for('main.category', cat_name='수영') }}">수영</a>
+            <a href="{{ url_for('main.category', cat_name='스카이다이빙') }}">스카이다이빙</a>
+            <a href="{{ url_for('main.category', cat_name='암벽등반') }}">암벽등반</a>
+            <a href="{{ url_for('main.category', cat_name='카페 취업') }}">카페 취업</a>
+            <a href="{{ url_for('main.category', cat_name='기술 연마') }}">기술 연마</a>
+        </div>
+        {% endif %}
+    </header>
+
+    <main class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="container">
+        <small>© 2026 CRSCWP - 정구영</small>
+    </footer>
+</body>
+</html>

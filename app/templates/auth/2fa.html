@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="grid">
+  <div></div>
+  <div>
+    <article>
+        <h3>2단계 인증</h3>
+        <p>발송된 6자리 인증 코드를 입력해주세요.</p>
+        <form method="POST" action="{{ url_for('auth.two_fa_post', user_id=user_id) }}">
+            <input type="text" name="code" placeholder="000000" maxlength="6" required>
+            <button type="submit">인증 확인</button>
+        </form>
+    </article>
+  </div>
+  <div></div>
+</div>
+{% endblock %}

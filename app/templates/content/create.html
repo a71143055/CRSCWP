@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article>
+    <h3>새 문서 작성</h3>
+    <form method="POST">
+        <label for="category">분야 선택</label>
+        <select name="category" id="category" required>
+            {% for cat in categories %}
+            <option value="{{ cat }}" {% if request.args.get('category') == cat %}selected{% endif %}>{{ cat }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="title">제목</label>
+        <input type="text" name="title" id="title" placeholder="문서 제목을 입력하세요" required>
+
+        <label for="content">내용</label>
+        <textarea name="content" id="content" rows="10" placeholder="내용을 공유해주세요 (Markdown 지원 예정)" required></textarea>
+
+        <button type="submit">문서 등록</button>
+    </form>
+</article>
+{% endblock %}

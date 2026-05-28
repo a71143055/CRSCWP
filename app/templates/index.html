@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<hgroup>
+  <h1>CRSCWP 플랫폼에 오신 것을 환영합니다</h1>
+  <h2>Robots / Sports / Coffees 동호회 웹 플랫폼</h2>
+</hgroup>
+
+<p>
+    CRSCWP는 로봇공학, 스포츠, 그리고 커피를 사랑하는 사람들을 위한 커뮤니티입니다.
+    회원가입 후 다양한 분야의 지식을 공유하고 문서를 작성해보세요.
+</p>
+
+{% if not current_user.is_authenticated %}
+<div class="grid">
+    <article>
+        <h3>처음이신가요?</h3>
+        <p>회원가입을 통해 커뮤니티의 일원이 되어보세요.</p>
+        <a href="{{ url_for('auth.signup') }}" role="button">회원가입</a>
+    </article>
+    <article>
+        <h3>이미 회원이신가요?</h3>
+        <p>로그인하여 활동을 이어가세요.</p>
+        <a href="{{ url_for('auth.login') }}" role="button" class="secondary">로그인</a>
+    </article>
+</div>
+{% endif %}
+{% endblock %}
