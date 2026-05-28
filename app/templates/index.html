@@ -1,28 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<hgroup>
-  <h1>CRSCWP 플랫폼에 오신 것을 환영합니다</h1>
-  <h2>Robots / Sports / Coffees 동호회 웹 플랫폼</h2>
-</hgroup>
+<section class="hero">
+    <h1>The Art of Future & Connection</h1>
+    <p>
+        로봇공학의 정점 AGI부터, 한계를 넘어서는 스포츠, 그리고 깊이 있는 커피 문화까지.
+        CRSCWP는 당신의 도약과 개척을 위한 프리미엄 지식 공유 플랫폼입니다.
+    </p>
+    {% if not current_user.is_authenticated %}
+    <div style="display: flex; gap: 1.5rem; justify-content: center;">
+        <a href="{{ url_for('auth.signup') }}" role="button">Get Started</a>
+        <a href="{{ url_for('auth.login') }}" role="button" class="secondary">Sign In</a>
+    </div>
+    {% endif %}
+</section>
 
-<p>
-    CRSCWP는 로봇공학, 스포츠, 그리고 커피를 사랑하는 사람들을 위한 커뮤니티입니다.
-    회원가입 후 다양한 분야의 지식을 공유하고 문서를 작성해보세요.
-</p>
-
-{% if not current_user.is_authenticated %}
 <div class="grid">
     <article>
-        <h3>처음이신가요?</h3>
-        <p>회원가입을 통해 커뮤니티의 일원이 되어보세요.</p>
-        <a href="{{ url_for('auth.signup') }}" role="button">회원가입</a>
+        <h3>AGI & ACTF</h3>
+        <p>인간을 본뜬 지능과 트랜스포머의 기술적 구현, 미래를 개척하는 기술의 도약을 논의합니다.</p>
     </article>
     <article>
-        <h3>이미 회원이신가요?</h3>
-        <p>로그인하여 활동을 이어가세요.</p>
-        <a href="{{ url_for('auth.login') }}" role="button" class="secondary">로그인</a>
+        <h3>Elite Sports</h3>
+        <p>무중력을 체험하는 수영, 중력에 적응하는 스카이다이빙, 한계를 거스르는 암벽등반의 세계.</p>
+    </article>
+    <article>
+        <h3>Coffee Mastery</h3>
+        <p>바리스타 기술 연마부터 제주도 카페 취업까지, 경제 자립을 위한 기술적 토대를 닦습니다.</p>
     </article>
 </div>
-{% endif %}
 {% endblock %}

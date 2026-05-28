@@ -22,24 +22,8 @@ def login_post():
         flash('로그인 정보를 확인해주세요.')
         return redirect(url_for('auth.login'))
 
-    # Basic 2FA simulation: redirect to a simple "Verify" page
-    return redirect(url_for('auth.two_fa', user_id=user.id))
-
-@auth.route('/2fa/<int:user_id>')
-def two_fa(user_id):
-    return render_template('auth/2fa.html', user_id=user_id)
-
-@auth.route('/2fa/<int:user_id>', methods=['POST'])
-def two_fa_post(user_id):
-    code = request.form.get('code')
-    # For simulation, any 6-digit code works
-    if len(code) == 6:
-        user = User.query.get(user_id)
-        login_user(user)
-        return redirect(url_for('main.profile'))
-    else:
-        flash('잘못된 인증 코드입니다.')
-        return redirect(url_for('auth.two_fa', user_id=user_id))
+    login_user(user, remember=remember)
+    return redirect(url_for('main.profile'))
 
 @auth.route('/signup')
 def signup():
@@ -63,6 +47,20 @@ def signup_post():
     db.session.commit()
 
     return redirect(url_for('auth.login'))
+
+@auth.route('/find-account')
+def find_account():
+    return render_template('auth/find_account.html')
+
+@auth.route('/find-account', methods=['POST'])
+def find_account_post():
+    email = request.form.get('email')
+    user = User.query.filter_by(email=email).first()
+    if user:
+        flash(f'계정이 확인되었습니다: {user.name}님, 비밀번호 재설정 메일이 발송되었습니다.')
+    else:
+        flash('등록되지 않은 이메일입니다.')
+    return redirect(url_for('auth.find_account'))
 
 @auth.route('/logout')
 @login_required

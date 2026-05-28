@@ -6,7 +6,6 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
     name = db.Column(db.String(1000), nullable=False)
-    two_fa_secret = db.Column(db.String(100), nullable=True) # For basic 2FA simulation
 
 class Document(db.Model):
     id = db.Column(db.Integer, primary_key=True)

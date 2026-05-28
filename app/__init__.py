@@ -10,7 +10,10 @@ login_manager.login_view = 'auth.login'
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'dev-secret-key'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///crscwp.db'
+    
+    # Use /tmp for SQLite on Vercel as the home directory is read-only
+    db_path = os.path.join('/tmp', 'crscwp.db')
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
